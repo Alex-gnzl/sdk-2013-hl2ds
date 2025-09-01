@@ -660,8 +660,6 @@ $Project
 		$File	"vscript_server.cpp"
 		$File	"$SRCDIR\game\shared\vscript_shared.cpp"
 		$File	"vscript_server.nut"
-		$file	"point_worldtext.cpp"
-		$file	"point_worldtext.h"
 		$File	"player_voice_listener.h"
 		$File	"player_voice_listener.cpp"
 		$File	"logic_eventlistener.cpp"
