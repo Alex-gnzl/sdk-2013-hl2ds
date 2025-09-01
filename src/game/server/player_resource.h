@@ -41,9 +41,11 @@ protected:
 	CNetworkArray( int, m_iTeam, MAX_PLAYERS_ARRAY_SAFE );
 	CNetworkArray( int, m_bAlive, MAX_PLAYERS_ARRAY_SAFE );
 	CNetworkArray( int, m_iHealth, MAX_PLAYERS_ARRAY_SAFE );
+#ifdef TF_DLL
 	CNetworkArray( uint32, m_iAccountID, MAX_PLAYERS_ARRAY_SAFE );
 	CNetworkArray( int, m_bValid, MAX_PLAYERS_ARRAY_SAFE );
 	CNetworkArray( int, m_iUserID, MAX_PLAYERS_ARRAY_SAFE );
+#endif // TF_DLL
 		
 	int	m_nUpdateCounter;
 };

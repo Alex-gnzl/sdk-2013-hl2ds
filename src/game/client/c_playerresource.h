@@ -75,9 +75,11 @@ protected:
 	bool	m_bAlive[MAX_PLAYERS_ARRAY_SAFE];
 	int		m_iHealth[MAX_PLAYERS_ARRAY_SAFE];
 	Color	m_Colors[MAX_TEAMS];
+#ifdef TF_CLIENT_DLL
 	uint32	m_iAccountID[MAX_PLAYERS_ARRAY_SAFE];
 	bool	m_bValid[MAX_PLAYERS_ARRAY_SAFE];
 	int		m_iUserID[MAX_PLAYERS_ARRAY_SAFE];
+#endif // TF_CLIENT_DLL
 	string_t m_szUnconnectedName;
 };
 
