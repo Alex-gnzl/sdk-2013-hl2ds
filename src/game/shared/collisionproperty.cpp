@@ -268,7 +268,9 @@ void CDirtySpatialPartitionEntityList::OnPostQuery( SpatialPartitionListMask_t l
 		DEFINE_FIELD( m_nSurroundType, FIELD_CHARACTER ),
 		DEFINE_FIELD( m_flRadius, FIELD_FLOAT ),
 		DEFINE_FIELD( m_triggerBloat, FIELD_CHARACTER ),
+#ifndef HL2_DLL
 		DEFINE_FIELD( m_bUniformTriggerBloat, FIELD_BOOLEAN ),
+#endif // not HL2_DLL
 		DEFINE_FIELD( m_vecSpecifiedSurroundingMinsPreScaled, FIELD_VECTOR ),
 		DEFINE_FIELD( m_vecSpecifiedSurroundingMaxsPreScaled, FIELD_VECTOR ),
 		DEFINE_FIELD( m_vecSpecifiedSurroundingMins, FIELD_VECTOR ),
@@ -294,7 +296,9 @@ BEGIN_PREDICTION_DATA_NO_BASE( CCollisionProperty )
 	DEFINE_PRED_FIELD( m_nSolidType, FIELD_CHARACTER, FTYPEDESC_INSENDTABLE ),
 	DEFINE_PRED_FIELD( m_usSolidFlags, FIELD_SHORT, FTYPEDESC_INSENDTABLE ),
 	DEFINE_PRED_FIELD( m_triggerBloat, FIELD_CHARACTER, FTYPEDESC_INSENDTABLE ),
+#ifndef HL2_CLIENT_DLL
 	DEFINE_PRED_FIELD( m_bUniformTriggerBloat, FIELD_BOOLEAN, FTYPEDESC_INSENDTABLE ),
+#endif // not HL2_CLIENT_DLL
 
 END_PREDICTION_DATA()
 
@@ -375,7 +379,9 @@ BEGIN_NETWORK_TABLE_NOBASE( CCollisionProperty, DT_CollisionProperty )
 	RecvPropInt( RECVINFO( m_usSolidFlags ),	0, RecvProxy_SolidFlags ),
 	RecvPropInt( RECVINFO(m_nSurroundType), 0, RecvProxy_IntDirtySurround ),
 	RecvPropInt( RECVINFO(m_triggerBloat), 0, RecvProxy_IntDirtySurround ), 
+#ifndef HL2_CLIENT_DLL
 	RecvPropBool( RECVINFO(m_bUniformTriggerBloat) ),
+#endif // HL2_CLIENT_DLL
 	RecvPropVector( RECVINFO(m_vecSpecifiedSurroundingMinsPreScaled), 0, RecvProxy_VectorDirtySurround ),
 	RecvPropVector( RECVINFO(m_vecSpecifiedSurroundingMaxsPreScaled), 0, RecvProxy_VectorDirtySurround ),
 	RecvPropVector( RECVINFO(m_vecSpecifiedSurroundingMins), 0, RecvProxy_VectorDirtySurround ),
@@ -389,7 +395,9 @@ BEGIN_NETWORK_TABLE_NOBASE( CCollisionProperty, DT_CollisionProperty )
 	SendPropInt( SENDINFO( m_usSolidFlags ),	FSOLID_MAX_BITS, SPROP_UNSIGNED, SendProxy_SolidFlags ),
 	SendPropInt( SENDINFO( m_nSurroundType ), SURROUNDING_TYPE_BIT_COUNT, SPROP_UNSIGNED ),
 	SendPropInt( SENDINFO(m_triggerBloat), 0, SPROP_UNSIGNED),
+#ifndef HL2_DLL
 	SendPropBool( SENDINFO(m_bUniformTriggerBloat) ),
+#endif // HL2_DLL
 	SendPropVector( SENDINFO(m_vecSpecifiedSurroundingMinsPreScaled), 0, SPROP_NOSCALE),
 	SendPropVector( SENDINFO(m_vecSpecifiedSurroundingMaxsPreScaled), 0, SPROP_NOSCALE),
 	SendPropVector( SENDINFO(m_vecSpecifiedSurroundingMins), 0, SPROP_NOSCALE),

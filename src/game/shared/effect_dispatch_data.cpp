@@ -110,13 +110,21 @@
 		SendPropInt( SENDINFO_NOCHECK( m_fFlags ), MAX_EFFECT_FLAG_BITS, SPROP_UNSIGNED ),
 		SendPropFloat( SENDINFO_NOCHECK( m_flMagnitude ), 12, SPROP_ROUNDDOWN, 0.0f, 1023.0f ),
 		SendPropFloat( SENDINFO_NOCHECK( m_flScale ), 0, SPROP_NOSCALE ),
+#ifndef HL2_DLL
 		SendPropInt( SENDINFO_NOCHECK( m_nAttachmentIndex ), 5 ),
+#else
+		SendPropInt( SENDINFO_NOCHECK( m_nAttachmentIndex ), 5, SPROP_UNSIGNED),
+#endif // HL2_DLL
 		SendPropIntWithMinusOneFlag( SENDINFO_NOCHECK( m_nSurfaceProp ), 8, SendProxy_ShortAddOne ),
 		SendPropInt( SENDINFO_NOCHECK( m_iEffectName ), MAX_EFFECT_DISPATCH_STRING_BITS, SPROP_UNSIGNED ),
 
 		SendPropInt( SENDINFO_NOCHECK( m_nMaterial ), MAX_MODEL_INDEX_BITS, SPROP_UNSIGNED ),
 		SendPropInt( SENDINFO_NOCHECK( m_nDamageType ), 32, SPROP_UNSIGNED ),
+#ifndef HL2_DLL
 		SendPropInt( SENDINFO_NOCHECK( m_nHitBox ), 13, SPROP_UNSIGNED ),
+#else
+		SendPropInt( SENDINFO_NOCHECK( m_nHitBox ), 11, SPROP_UNSIGNED ),
+#endif // HL2_DLL
 
 		SendPropInt( SENDINFO_NAME( m_nEntIndex, entindex ), MAX_EDICT_BITS, SPROP_UNSIGNED ),
 

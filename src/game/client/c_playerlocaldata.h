@@ -36,7 +36,9 @@ public:
 		m_bForceLocalPlayerDraw = false;
 		m_bPrevForceLocalPlayerDraw = false;
 
+#ifndef HL2_CLIENT_DLL
 		m_szScriptOverlayMaterial.GetForModify()[0] = '\0';
+#endif // HL2_CLIENT_DLL
 	}
 
 	unsigned char			m_chAreaBits[MAX_AREA_STATE_BYTES];				// Area visibility flags.
@@ -82,7 +84,11 @@ public:
 
 	bool					m_bSlowMovement;
 
+#ifndef HL2_CLIENT_DLL
 	CNetworkString( m_szScriptOverlayMaterial, MAX_PATH );
+#else
+	char m_szScriptOverlayMaterial[MAX_PATH];
+#endif // HL2_CLIENT_DLL
 };
 
 #endif // C_PLAYERLOCALDATA_H

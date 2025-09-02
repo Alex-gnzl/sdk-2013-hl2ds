@@ -20,12 +20,20 @@ IMPLEMENT_CLIENTCLASS_DT( C_PointCamera, DT_PointCamera, CPointCamera )
 	RecvPropFloat( RECVINFO( m_Resolution ) ), 
 	RecvPropInt( RECVINFO( m_bFogEnable ) ),
 	RecvPropInt( RECVINFO( m_FogColor ) ),
+// GNZL: DUMMY
+#ifdef HL2_CLIENT_DLL
+	RecvPropInt( RECVINFO( m_FogColor_HDR ) ),
+#endif // HL2_CLIENT_DLL
 	RecvPropFloat( RECVINFO( m_flFogStart ) ), 
 	RecvPropFloat( RECVINFO( m_flFogEnd ) ), 
 	RecvPropFloat( RECVINFO( m_flFogMaxDensity ) ), 
 	RecvPropInt( RECVINFO( m_bFogRadial ) ),
 	RecvPropInt( RECVINFO( m_bActive ) ),
 	RecvPropInt( RECVINFO( m_bUseScreenAspectRatio ) ),
+// GNZL: DUMMY
+#ifdef HL2_CLIENT_DLL
+		RecvPropInt( RECVINFO( m_bUseHDCamera ) ),
+#endif // HL2_CLIENT_DLL
 END_RECV_TABLE()
 
 C_EntityClassList<C_PointCamera> g_PointCameraList;

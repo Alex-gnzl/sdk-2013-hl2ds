@@ -211,7 +211,11 @@ bool CEnvSoundscape::InRangeOfPlayer( CBasePlayer *pTarget )
 
 void CEnvSoundscape::WriteAudioParamsTo( audioparams_t &audio )
 {
+#ifndef HL2_DLL
 	audio.entIndex = m_soundscapeEntityId;
+#else
+	audio.ent = m_soundscapeEntityId;
+#endif // HL2_DLL
 	audio.soundscapeIndex = m_soundscapeIndex;
 	audio.localBits = 0;
 	for ( int i = 0; i < ARRAYSIZE(m_positionNames); i++ )
@@ -304,7 +308,11 @@ void CEnvSoundscape::UpdateForPlayer( ss_update_t &update )
  		if ( update.pPlayer )
 		{
 			audioparams_t &audio = update.pPlayer->GetAudioParams();
+#ifndef HL2_DLL
 			if ( audio.entIndex != m_soundscapeEntityId )
+#else
+			if ( audio.ent != m_soundscapeEntityId )
+#endif // HL2_DLL
 			{
 				if ( InRangeOfPlayer( update.pPlayer ) )
 				{
@@ -384,7 +392,11 @@ void CEnvSoundscape::DrawDebugGeometryOverlays( void )
 		if ( pPlayer )
 		{
 			audioparams_t &audio = pPlayer->GetAudioParams();
+#ifndef HL2_DLL
 			if ( audio.entIndex != m_soundscapeEntityId )
+#else
+			if ( audio.ent != m_soundscapeEntityId )
+#endif // HL2_DLL
 			{
 				CBaseEntity *pEnt = pPlayer; // ->GetSoundscapeListener();
 				if ( pEnt )
@@ -454,7 +466,11 @@ void CEnvSoundscapeTriggerable::DelegateEndTouch( CBaseEntity *pEnt )
 	}
 
 	// No soundscapes left.
+#ifndef HL2_DLL
 	pPlayer->GetAudioParams().entIndex = 0;
+#else
+	pPlayer->GetAudioParams().ent = 0;
+#endif // HL2_DLL
 }
 
 

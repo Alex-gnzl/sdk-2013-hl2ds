@@ -1226,11 +1226,15 @@ public:
 	{
 		if ( !pszMaterial || !*pszMaterial )
 		{
+#ifndef HL2_DLL
 			m_Local.m_szScriptOverlayMaterial.GetForModify()[0] = '\0';
+#endif // HL2_DLL
 			return;
 		}
 
+#ifndef HL2_DLL
 		V_strncpy( m_Local.m_szScriptOverlayMaterial.GetForModify(), pszMaterial, MAX_PATH );
+#endif // HL2_DLL
 	}
 
 	void InputSetScriptOverlayMaterial( inputdata_t &inputdata )

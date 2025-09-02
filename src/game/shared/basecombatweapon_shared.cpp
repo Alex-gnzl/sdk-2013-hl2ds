@@ -2681,7 +2681,9 @@ BEGIN_DATADESC( CBaseCombatWeapon )
 	DEFINE_FIELD( m_flHudHintPollTime, FIELD_TIME ),
 	DEFINE_FIELD( m_flHudHintMinDisplayTime, FIELD_TIME ),
 
+#if !(defined(HL2_DLL) || defined(HL2_CLIENT_DLL))
 	DEFINE_FIELD( m_nCustomViewmodelModelIndex, FIELD_SHORT ),
+#endif
 
 	// Just to quiet classcheck.. this field exists only on the client
 //	DEFINE_FIELD( m_iOldState, FIELD_INTEGER ),
@@ -2840,7 +2842,9 @@ BEGIN_NETWORK_TABLE_NOBASE( CBaseCombatWeapon, DT_LocalWeaponData )
 	SendPropInt( SENDINFO(m_iSecondaryAmmoType ), 8 ),
 
 	SendPropInt( SENDINFO( m_nViewModelIndex ), VIEWMODEL_INDEX_BITS, SPROP_UNSIGNED ),
+#ifndef HL2_DLL
 	SendPropModelIndex( SENDINFO( m_nCustomViewmodelModelIndex ) ),
+#endif // HL2_DLL
 
 	SendPropInt( SENDINFO( m_bFlipViewModel ) ),
 
@@ -2855,7 +2859,9 @@ BEGIN_NETWORK_TABLE_NOBASE( CBaseCombatWeapon, DT_LocalWeaponData )
 	RecvPropInt( RECVINFO(m_iSecondaryAmmoType )),
 
 	RecvPropInt( RECVINFO( m_nViewModelIndex ) ),
+#ifndef HL2_CLIENT_DLL
 	RecvPropInt( RECVINFO( m_nCustomViewmodelModelIndex ) ),
+#endif // HL2_CLIENT_DLL
 
 	RecvPropBool( RECVINFO( m_bFlipViewModel ) ),
 

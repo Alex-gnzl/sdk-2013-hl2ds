@@ -8141,7 +8141,11 @@ void CMovementSpeedMod::InputSpeedMod(inputdata_t &data)
 		SendPropFloat		( SENDINFO_VECTORELEM(m_vecVelocity, 1), 32, SPROP_NOSCALE|SPROP_CHANGES_OFTEN ),
 		SendPropFloat		( SENDINFO_VECTORELEM(m_vecVelocity, 2), 32, SPROP_NOSCALE|SPROP_CHANGES_OFTEN ),
 
+#ifndef HL2_DLL
 		SendPropVector		( SENDINFO( m_vecBaseVelocity ), 32, SPROP_NOSCALE ),
+#else
+		SendPropVector		( SENDINFO( m_vecBaseVelocity ), 20, 0, -1000, 1000 ),
+#endif // HL2_DLL
 
 		SendPropEHandle		( SENDINFO( m_hConstraintEntity)),
 		SendPropVector		( SENDINFO( m_vecConstraintCenter), 0, SPROP_NOSCALE ),
@@ -8180,7 +8184,11 @@ void CMovementSpeedMod::InputSpeedMod(inputdata_t &data)
 		SendPropInt		(SENDINFO(m_iBonusProgress), 15 ),
 		SendPropInt		(SENDINFO(m_iBonusChallenge), 4 ),
 		SendPropFloat	(SENDINFO(m_flMaxspeed), 12, SPROP_ROUNDDOWN, 0.0f, 2048.0f ),  // CL
+#ifndef HL2_DLL
 		SendPropInt		(SENDINFO(m_fFlags), 0, SPROP_UNSIGNED|SPROP_CHANGES_OFTEN ),
+#else
+		SendPropInt		(SENDINFO(m_fFlags), 10, SPROP_UNSIGNED|SPROP_CHANGES_OFTEN ),
+#endif // HL2_DLL
 		SendPropInt		(SENDINFO(m_iObserverMode), 3, SPROP_UNSIGNED ),
 		SendPropEHandle	(SENDINFO(m_hObserverTarget) ),
 		SendPropInt		(SENDINFO(m_iFOV), 8, SPROP_UNSIGNED ),

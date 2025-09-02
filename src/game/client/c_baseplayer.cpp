@@ -177,7 +177,9 @@ BEGIN_RECV_TABLE_NOBASE( CPlayerLocalData, DT_Local )
 	RecvPropInt		(RECVINFO(m_bDrawViewmodel)),
 	RecvPropInt		(RECVINFO(m_bWearingSuit)),
 	RecvPropBool	(RECVINFO(m_bPoisoned)),
+#ifndef HL2_CLIENT_DLL
 	RecvPropBool	(RECVINFO(m_bForceLocalPlayerDraw)),
+#endif // HL2_CLIENT_DLL
 	RecvPropFloat	(RECVINFO(m_flStepSize)),
 	RecvPropInt		(RECVINFO(m_bAllowAutoMovement)),
 
@@ -193,6 +195,10 @@ BEGIN_RECV_TABLE_NOBASE( CPlayerLocalData, DT_Local )
 	RecvPropVector( RECVINFO( m_skybox3d.fog.dirPrimary ) ),
 	RecvPropInt( RECVINFO( m_skybox3d.fog.colorPrimary ) ),
 	RecvPropInt( RECVINFO( m_skybox3d.fog.colorSecondary ) ),
+#ifdef HL2_CLIENT_DLL // GNZL: DUMMY
+	RecvPropInt( RECVINFO( m_skybox3d.fog.colorPrimaryHDR ) ),
+	RecvPropInt( RECVINFO( m_skybox3d.fog.colorSecondaryHDR ) ),
+#endif // HL2_CLIENT_DLL
 	RecvPropFloat( RECVINFO( m_skybox3d.fog.start ) ),
 	RecvPropFloat( RECVINFO( m_skybox3d.fog.end ) ),
 	RecvPropFloat( RECVINFO( m_skybox3d.fog.maxdensity ) ),
@@ -212,8 +218,9 @@ BEGIN_RECV_TABLE_NOBASE( CPlayerLocalData, DT_Local )
 	RecvPropInt( RECVINFO( m_audio.soundscapeIndex ) ),
 	RecvPropInt( RECVINFO( m_audio.localBits ) ),
 	RecvPropInt( RECVINFO( m_audio.entIndex ) ),
-
+#ifndef HL2_CLIENT_DLL
 	RecvPropString( RECVINFO( m_szScriptOverlayMaterial ) ),
+#endif
 END_RECV_TABLE()
 
 // -------------------------------------------------------------------------------- //
@@ -339,7 +346,10 @@ BEGIN_PREDICTION_DATA_NO_BASE( CPlayerLocalData )
 	DEFINE_PRED_FIELD( m_bDrawViewmodel, FIELD_BOOLEAN, FTYPEDESC_INSENDTABLE ),
 	DEFINE_PRED_FIELD( m_bWearingSuit, FIELD_BOOLEAN, FTYPEDESC_INSENDTABLE ),
 	DEFINE_PRED_FIELD( m_bPoisoned, FIELD_BOOLEAN, FTYPEDESC_INSENDTABLE ),
+
+#ifndef HL2_CLIENT_DLL
 	DEFINE_PRED_FIELD( m_bForceLocalPlayerDraw, FIELD_BOOLEAN, FTYPEDESC_INSENDTABLE ),
+#endif // HL2_CLIENT_DLL
 	DEFINE_PRED_FIELD( m_bAllowAutoMovement, FIELD_BOOLEAN, FTYPEDESC_INSENDTABLE ),
 
 	DEFINE_PRED_FIELD( m_bDucked, FIELD_BOOLEAN, FTYPEDESC_INSENDTABLE ),
@@ -3037,7 +3047,11 @@ void CC_DumpClientSoundscapeData( const CCommand& args )
 	Msg("Client Soundscape data dump:\n");
 	Msg("   Position: %.2f %.2f %.2f\n", pPlayer->GetAbsOrigin().x, pPlayer->GetAbsOrigin().y, pPlayer->GetAbsOrigin().z );
 	Msg("   soundscape index: %d\n", pPlayer->m_Local.m_audio.soundscapeIndex.Get() );
+#ifndef HL2_CLIENT_DLL
 	Msg("   entity index: %d\n", pPlayer->m_Local.m_audio.entIndex.Get() );
+#else
+	Msg("   entity index: %d\n", pPlayer->m_Local.m_audio.ent.Get() );
+#endif // HL2_CLIENT_DLL
 #if 0
 	if ( pPlayer->m_Local.m_audio.ent.Get() )
 	{

@@ -234,11 +234,19 @@ BEGIN_DATADESC( CPointCamera )
 	DEFINE_KEYFIELD( m_Resolution,	FIELD_FLOAT, "resolution" ),
 	DEFINE_KEYFIELD( m_bFogEnable,	FIELD_BOOLEAN, "fogEnable" ),
 	DEFINE_KEYFIELD( m_FogColor,	FIELD_COLOR32,	"fogColor" ),
+// GNZL: DUMMY
+#ifdef HL2_DLL
+	DEFINE_KEYFIELD( m_FogColor_HDR,	FIELD_COLOR32,	"fogColor_HDR" ),
+#endif // HL2_DLL
 	DEFINE_KEYFIELD( m_flFogStart,	FIELD_FLOAT, "fogStart" ),
 	DEFINE_KEYFIELD( m_flFogEnd,	FIELD_FLOAT, "fogEnd" ),
 	DEFINE_KEYFIELD( m_flFogMaxDensity,	FIELD_FLOAT, "fogMaxDensity" ),
 	DEFINE_KEYFIELD( m_bFogRadial, FIELD_BOOLEAN, "fogRadial" ),
 	DEFINE_KEYFIELD( m_bUseScreenAspectRatio, FIELD_BOOLEAN, "UseScreenAspectRatio" ),
+// GNZL: DUMMY
+#ifdef HL2_DLL
+	DEFINE_KEYFIELD( m_bUseHDCamera, FIELD_BOOLEAN, "UseHDCamera" ),
+#endif // HL2_DLL
 	DEFINE_FIELD( m_bActive,		FIELD_BOOLEAN ),
 	DEFINE_FIELD( m_bIsOn,			FIELD_BOOLEAN ),
 
@@ -262,10 +270,18 @@ IMPLEMENT_SERVERCLASS_ST( CPointCamera, DT_PointCamera )
 	SendPropFloat( SENDINFO( m_Resolution ), 0, SPROP_NOSCALE ),
 	SendPropInt( SENDINFO( m_bFogEnable ), 1, SPROP_UNSIGNED ),	
 	SendPropInt( SENDINFO_STRUCTELEM( m_FogColor ), 32, SPROP_UNSIGNED ),
+// GNZL: DUMMY
+#ifdef HL2_DLL
+	SendPropInt( SENDINFO_STRUCTELEM( m_FogColor_HDR ), 32, SPROP_UNSIGNED ),
+#endif // HL2_DLL
 	SendPropFloat( SENDINFO( m_flFogStart ), 0, SPROP_NOSCALE ),	
 	SendPropFloat( SENDINFO( m_flFogEnd ), 0, SPROP_NOSCALE ),	
 	SendPropFloat( SENDINFO( m_flFogMaxDensity ), 0, SPROP_NOSCALE ),	
 	SendPropInt( SENDINFO( m_bFogRadial ), 1, SPROP_UNSIGNED ),
 	SendPropInt( SENDINFO( m_bActive ), 1, SPROP_UNSIGNED ),
 	SendPropInt( SENDINFO( m_bUseScreenAspectRatio ), 1, SPROP_UNSIGNED ),
+// GNZL: DUMMY
+#ifdef HL2_DLL
+	SendPropInt( SENDINFO( m_bUseHDCamera ), 1, SPROP_UNSIGNED ),
+#endif // HL2_DLL
 END_SEND_TABLE()

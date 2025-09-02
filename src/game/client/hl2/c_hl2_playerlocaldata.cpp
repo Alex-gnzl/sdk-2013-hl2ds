@@ -13,9 +13,11 @@
 
 BEGIN_RECV_TABLE_NOBASE( C_HL2PlayerLocalData, DT_HL2Local )
 	RecvPropFloat( RECVINFO(m_flSuitPower) ),
+#ifndef HL2_CLIENT_DLL
 	RecvPropFloat( RECVINFO(m_flSuitPowerLoad) ),
 	RecvPropFloat( RECVINFO(m_flTimeAllSuitDevicesOff) ),
 	RecvPropInt( RECVINFO(m_bNewSprinting) ),
+#endif // HL2_CLIENT_DLL
 	RecvPropInt( RECVINFO(m_bZooming) ),
 	RecvPropInt( RECVINFO(m_bitsActiveDevices) ),
 	RecvPropInt( RECVINFO(m_iSquadMemberCount) ),
@@ -33,18 +35,24 @@ BEGIN_RECV_TABLE_NOBASE( C_HL2PlayerLocalData, DT_HL2Local )
 	RecvPropVector( RECVINFO(m_vecLocatorOrigin) ),
 #endif
 
+#ifndef HL2_CLIENT_DLL
 	RecvPropDataTable( RECVINFO_DT( m_LadderMove ), 0, &REFERENCE_RECV_TABLE( DT_LadderMove ) ),
+#endif // HL2_CLIENT_DLL
 END_RECV_TABLE()
 
 BEGIN_PREDICTION_DATA_NO_BASE( C_HL2PlayerLocalData )
 	DEFINE_PRED_FIELD( m_hLadder, FIELD_EHANDLE, FTYPEDESC_INSENDTABLE ), 
 	DEFINE_PRED_FIELD( m_flSuitPower, FIELD_FLOAT, FTYPEDESC_INSENDTABLE ),
+#ifndef HL2_CLIENT_DLL
 	DEFINE_PRED_FIELD( m_flSuitPowerLoad, FIELD_FLOAT, FTYPEDESC_INSENDTABLE ),
 	DEFINE_PRED_FIELD( m_flTimeAllSuitDevicesOff, FIELD_FLOAT, FTYPEDESC_INSENDTABLE ),
 	DEFINE_PRED_FIELD( m_bNewSprinting, FIELD_BOOLEAN, FTYPEDESC_INSENDTABLE ),
+#endif // HL2_CLIENT_DLL
 	DEFINE_PRED_FIELD( m_bitsActiveDevices, FIELD_INTEGER, FTYPEDESC_INSENDTABLE ),
 
+#ifndef HL2_CLIENT_DLL
 	DEFINE_PRED_TYPEDESCRIPTION( m_LadderMove, LadderMove_t ),
+#endif // HL2_CLIENT_DLL
 END_PREDICTION_DATA()
 
 C_HL2PlayerLocalData::C_HL2PlayerLocalData()

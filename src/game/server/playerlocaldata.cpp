@@ -46,14 +46,25 @@ BEGIN_SEND_TABLE_NOBASE( CPlayerLocalData, DT_Local )
 
 #else
 	// misyl: was causing some rare pred errors at 17 bits...
+	// GNZL: how unfortunate
+#ifndef HL2_DLL
 	SendPropFloat	(SENDINFO(m_flFallVelocity), 32, SPROP_NOSCALE | SPROP_CHANGES_OFTEN, -4096.0f, 4096.0f ),
-	SendPropVector	(SENDINFO(m_vecPunchAngle),      -1,  SPROP_COORD|SPROP_CHANGES_OFTEN),
+#else
+	SendPropFloat	(SENDINFO(m_flFallVelocity), 17, SPROP_CHANGES_OFTEN, -4096.0f, 4096.0f ),
+#endif // HL2_DLL
+	SendPropVector	(SENDINFO(m_vecPunchAngle),      -1,  SPROP_COORD|SPROP_CHANGES_OFTEN ),
+#ifndef HL2_DLL
 	SendPropVector	(SENDINFO(m_vecPunchAngleVel),   -1,  SPROP_COORD| SPROP_CHANGES_OFTEN ),
+#else
+	SendPropVector	(SENDINFO(m_vecPunchAngleVel),   -1,  SPROP_COORD ),
+#endif // HL2_DLL
 #endif
 	SendPropInt		(SENDINFO(m_bDrawViewmodel), 1, SPROP_UNSIGNED ),
 	SendPropInt		(SENDINFO(m_bWearingSuit), 1, SPROP_UNSIGNED ),
 	SendPropBool	(SENDINFO(m_bPoisoned)),
+#ifndef HL2_DLL
 	SendPropBool	(SENDINFO(m_bForceLocalPlayerDraw)),
+#endif // HL2_DLL
 
 	SendPropFloat	(SENDINFO(m_flStepSize), 16, SPROP_ROUNDUP, 0.0f, 128.0f ),
 	SendPropInt		(SENDINFO(m_bAllowAutoMovement),1, SPROP_UNSIGNED ),
@@ -68,6 +79,10 @@ BEGIN_SEND_TABLE_NOBASE( CPlayerLocalData, DT_Local )
 	SendPropVector( SENDINFO_STRUCTELEM(m_skybox3d.fog.dirPrimary), -1, SPROP_COORD),
 	SendPropInt( SENDINFO_STRUCTELEM( m_skybox3d.fog.colorPrimary ), 32, SPROP_UNSIGNED ),
 	SendPropInt( SENDINFO_STRUCTELEM( m_skybox3d.fog.colorSecondary ), 32, SPROP_UNSIGNED ),
+#if HL2_DLL
+	SendPropInt( SENDINFO_STRUCTELEM( m_skybox3d.fog.colorPrimaryHDR), 32, SPROP_UNSIGNED ),
+	SendPropInt( SENDINFO_STRUCTELEM( m_skybox3d.fog.colorSecondaryHDR ), 32, SPROP_UNSIGNED ),
+#endif // HL2_DLL
 	SendPropFloat( SENDINFO_STRUCTELEM( m_skybox3d.fog.start ), 0, SPROP_NOSCALE ),
 	SendPropFloat( SENDINFO_STRUCTELEM( m_skybox3d.fog.end ), 0, SPROP_NOSCALE ),
 	SendPropFloat( SENDINFO_STRUCTELEM( m_skybox3d.fog.maxdensity ), 0, SPROP_NOSCALE ),
@@ -85,9 +100,16 @@ BEGIN_SEND_TABLE_NOBASE( CPlayerLocalData, DT_Local )
 	SendPropVector( SENDINFO_STRUCTARRAYELEM( m_audio.localSound, 7 ), -1, SPROP_COORD),
 	SendPropInt( SENDINFO_STRUCTELEM( m_audio.soundscapeIndex ), 17, 0 ),
 	SendPropInt( SENDINFO_STRUCTELEM( m_audio.localBits ), NUM_AUDIO_LOCAL_SOUNDS, SPROP_UNSIGNED ),
+	// GNZL: wtf was this about?
+#ifndef HL2_DLL
 	SendPropInt( SENDINFO_STRUCTELEM( m_audio.entIndex ) ),
+#else
+	SendPropInt( SENDINFO_STRUCTELEM( m_audio.ent ), 21, SPROP_UNSIGNED ),
+#endif // HL2_DLL
 
+#ifndef HL2_DLL
 	SendPropString( SENDINFO( m_szScriptOverlayMaterial ) ),
+#endif
 END_SEND_TABLE()
 
 BEGIN_SIMPLE_DATADESC( fogplayerparams_t )
@@ -108,6 +130,10 @@ BEGIN_SIMPLE_DATADESC( fogparams_t )
 	DEFINE_FIELD( dirPrimary, FIELD_VECTOR ),
 	DEFINE_FIELD( colorPrimary, FIELD_COLOR32 ),
 	DEFINE_FIELD( colorSecondary, FIELD_COLOR32 ),
+#ifdef HL2_DLL
+	DEFINE_FIELD( colorPrimaryHDR, FIELD_COLOR32 ),
+	DEFINE_FIELD( colorSecondaryHDR, FIELD_COLOR32 ),
+#endif // HL2_DLL
 	DEFINE_FIELD( start, FIELD_FLOAT ),
 	DEFINE_FIELD( end, FIELD_FLOAT ),
 	DEFINE_FIELD( farz, FIELD_FLOAT ),
@@ -135,7 +161,11 @@ BEGIN_SIMPLE_DATADESC( audioparams_t )
 	DEFINE_AUTO_ARRAY( localSound, FIELD_VECTOR ),
 	DEFINE_FIELD( soundscapeIndex, FIELD_INTEGER ),
 	DEFINE_FIELD( localBits, FIELD_INTEGER ),
+#ifndef HL2_DLL
 	DEFINE_FIELD( entIndex, FIELD_INTEGER ),
+#else
+	DEFINE_FIELD( ent, FIELD_INTEGER ),
+#endif // HL2_DLL
 
 END_DATADESC()
 
@@ -160,7 +190,9 @@ BEGIN_SIMPLE_DATADESC( CPlayerLocalData )
 	DEFINE_FIELD( m_bDrawViewmodel, FIELD_BOOLEAN ),
 	DEFINE_FIELD( m_bWearingSuit, FIELD_BOOLEAN ),
 	DEFINE_FIELD( m_bPoisoned, FIELD_BOOLEAN ),
+#ifndef HL2_DLL
 	DEFINE_FIELD( m_bForceLocalPlayerDraw, FIELD_BOOLEAN ),
+#endif // HL2_DLL
 	DEFINE_FIELD( m_flStepSize, FIELD_FLOAT ),
 	DEFINE_FIELD( m_bAllowAutoMovement, FIELD_BOOLEAN ),
 	DEFINE_EMBEDDED( m_skybox3d ),
@@ -190,11 +222,17 @@ CPlayerLocalData::CPlayerLocalData()
 #endif
 	m_audio.soundscapeIndex = 0;
 	m_audio.localBits = 0;
+#ifndef HL2_DLL
 	m_audio.entIndex = 0;
+#else
+	m_audio.ent = 0;
+#endif // HL2_DLL
 	m_pOldSkyCamera = NULL;
 	m_bDrawViewmodel = true;
 
+#ifndef HL2_DLL
 	m_szScriptOverlayMaterial.GetForModify()[0] = '\0';
+#endif // HL2_DLL
 }
 
 

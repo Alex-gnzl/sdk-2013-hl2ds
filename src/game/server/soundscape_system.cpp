@@ -330,9 +330,15 @@ void CSoundscapeSystem::FrameUpdatePostEntityThink()
 				// if we got this far, we're looking at an entity that is contending
 				// for current player sound. the closest entity to player wins.
 				CEnvSoundscape *pCurrent = NULL;
+#ifndef HL2_DLL
 				if ( audio.entIndex > 0 && audio.entIndex <= m_soundscapeEntities.Count() )
 				{
 					int ssIndex = audio.entIndex - 1;
+#else
+				if ( audio.ent > 0 && audio.ent <= m_soundscapeEntities.Count() )
+				{
+					int ssIndex = audio.ent - 1;
+#endif // HL2_DLL
 							  
 					pCurrent = m_soundscapeEntities[ssIndex];
 				}

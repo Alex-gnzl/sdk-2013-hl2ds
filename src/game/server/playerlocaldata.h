@@ -73,7 +73,11 @@ public:
 	// Is the player wearing the HEV suit
 	CNetworkVar( bool, m_bWearingSuit );
 	CNetworkVar( bool, m_bPoisoned );
+#ifndef HL2_DLL
 	CNetworkVar( bool, m_bForceLocalPlayerDraw );
+#else
+	bool m_bForceLocalPlayerDraw;
+#endif // HL2_DLL
 	CNetworkVar( float, m_flStepSize );
 	CNetworkVar( bool, m_bAllowAutoMovement );
 
@@ -87,7 +91,11 @@ public:
 
 	CNetworkVar( bool, m_bSlowMovement );
 
+#ifndef HL2_DLL
 	CNetworkString( m_szScriptOverlayMaterial, MAX_PATH );
+#else
+	char m_szScriptOverlayMaterial[MAX_PATH];
+#endif // HL2_DLL
 };
 
 EXTERN_SEND_TABLE(DT_Local);

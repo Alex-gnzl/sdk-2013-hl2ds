@@ -34,6 +34,10 @@ public:
 
 	//Client-side
 	CNetworkVar( float, m_flStartScale );
+// GNZOL: DUMMY
+#ifdef HL2_DLL
+	CNetworkVar( float, m_flOriginalStartScale );
+#endif // HL2_DLL
 	CNetworkVar( float, m_flScale );
 	CNetworkVar( float, m_flScaleTime );
 	CNetworkVar( int, m_nFlags );

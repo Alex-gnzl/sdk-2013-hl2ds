@@ -254,7 +254,11 @@ private:
 	// One of the SOLID_ defines. Use GetSolid/SetSolid.
 	CNetworkVar( unsigned char, m_nSolidType );			
 	CNetworkVar( unsigned char , m_triggerBloat );
+#if !(defined(HL2_DLL) || defined(HL2_CLIENT_DLL))
 	CNetworkVar( bool, m_bUniformTriggerBloat );
+#else
+	bool m_bUniformTriggerBloat;
+#endif
 
 	// SUCKY: We didn't use to have to store this previously
 	// but storing it here means that we can network it + avoid a ton of

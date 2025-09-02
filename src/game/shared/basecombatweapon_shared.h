@@ -658,7 +658,11 @@ private:
 	float					m_flHudHintPollTime;	// When to poll the weapon again for whether it should display a hud hint.
 	float					m_flHudHintMinDisplayTime; // if the hint is squelched before this, reset my counter so we'll display it again.
 	
+#if !(defined(HL2_DLL) || defined(HL2_CLIENT_DLL))
 	CNetworkVar( short, m_nCustomViewmodelModelIndex );
+#else
+	short m_nCustomViewmodelModelIndex;
+#endif
 
 	// Server only
 #if !defined( CLIENT_DLL )

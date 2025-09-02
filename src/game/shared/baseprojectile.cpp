@@ -16,10 +16,12 @@
 IMPLEMENT_NETWORKCLASS_ALIASED( BaseProjectile, DT_BaseProjectile )
 
 BEGIN_NETWORK_TABLE( CBaseProjectile, DT_BaseProjectile )
+#if defined(TF_MOD) || (TF_CLIENT_DLL)
 #if !defined( CLIENT_DLL )
 	SendPropEHandle( SENDINFO( m_hOriginalLauncher ) ),
 #else
 	RecvPropEHandle( RECVINFO( m_hOriginalLauncher ) ),
+#endif // TF2 bullshit
 #endif // CLIENT_DLL
 END_NETWORK_TABLE()
 

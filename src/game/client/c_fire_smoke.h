@@ -147,6 +147,10 @@ public:
 //From the server
 public:
 	float	m_flStartScale;
+// GNZL: DUMMY
+#ifdef HL2_CLIENT_DLL
+	float m_flOriginalStartScale;
+#endif // HL2_CLIENT_DLL
 	float	m_flScale;
 	float	m_flScaleTime;
 	int		m_nFlags;
@@ -292,6 +296,14 @@ public:
 	CNewParticleEffect *m_hEffect;
 	EHANDLE				m_hEntAttached;		// The entity that we are burning (attached to).
 	EHANDLE				m_hOldAttached;
+// GNZL: DUMMY
+#ifdef HL2_CLIENT_DLL
+	float m_flSize;
+	bool m_bUseHitboxes;
+	int m_iNumHitboxFires;
+	float m_flHitboxFireScale;
+	float m_flLifetime;
+#endif // HL2_CLIENT_DLL
 
 protected:
 

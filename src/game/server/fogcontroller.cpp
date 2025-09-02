@@ -53,6 +53,10 @@ BEGIN_DATADESC( CFogController )
 	DEFINE_KEYFIELD( m_bUseAngles,			FIELD_BOOLEAN,	"use_angles" ),
 	DEFINE_KEYFIELD( m_fog.colorPrimary,	FIELD_COLOR32,	"fogcolor" ),
 	DEFINE_KEYFIELD( m_fog.colorSecondary,	FIELD_COLOR32,	"fogcolor2" ),
+#ifdef HL2_DLL // GNZL: DUMMY
+	DEFINE_KEYFIELD( m_fog.colorPrimaryHDR,	FIELD_COLOR32,	"fogcolor_hdr" ),
+	DEFINE_KEYFIELD( m_fog.colorSecondaryHDR,	FIELD_COLOR32,	"fogcolor2_hdr" ),
+#endif // HL2_DLL
 	DEFINE_KEYFIELD( m_fog.dirPrimary,		FIELD_VECTOR,	"fogdir" ),
 	DEFINE_KEYFIELD( m_fog.enable,			FIELD_BOOLEAN,	"fogenable" ),
 	DEFINE_KEYFIELD( m_fog.blend,			FIELD_BOOLEAN,	"fogblend" ),
@@ -83,6 +87,10 @@ IMPLEMENT_SERVERCLASS_ST_NOBASE( CFogController, DT_FogController )
 	SendPropVector( SENDINFO_STRUCTELEM(m_fog.dirPrimary), -1, SPROP_COORD),
 	SendPropInt( SENDINFO_STRUCTELEM( m_fog.colorPrimary ), 32, SPROP_UNSIGNED ),
 	SendPropInt( SENDINFO_STRUCTELEM( m_fog.colorSecondary ), 32, SPROP_UNSIGNED ),
+#ifdef HL2_DLL // GNZL: DUMMY
+	SendPropInt( SENDINFO_STRUCTELEM( m_fog.colorPrimaryHDR ), 32, SPROP_UNSIGNED ),
+	SendPropInt( SENDINFO_STRUCTELEM( m_fog.colorSecondaryHDR ), 32, SPROP_UNSIGNED ),
+#endif // HL2_DLL
 	SendPropFloat( SENDINFO_STRUCTELEM( m_fog.start ), 0, SPROP_NOSCALE ),
 	SendPropFloat( SENDINFO_STRUCTELEM( m_fog.end ), 0, SPROP_NOSCALE ),
 	SendPropFloat( SENDINFO_STRUCTELEM( m_fog.maxdensity ), 0, SPROP_NOSCALE ),

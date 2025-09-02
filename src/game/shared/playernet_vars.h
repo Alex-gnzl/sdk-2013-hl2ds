@@ -31,6 +31,10 @@ struct fogparams_t
 	CNetworkVector( dirPrimary );
 	CNetworkColor32( colorPrimary );
 	CNetworkColor32( colorSecondary );
+#if defined(HL2_DLL) || defined(HL2_CLIENT_DLL)
+	CNetworkColor32( colorPrimaryHDR );
+	CNetworkColor32( colorSecondaryHDR );
+#endif
 	CNetworkColor32( colorPrimaryLerpTo );
 	CNetworkColor32( colorSecondaryLerpTo );
 	CNetworkVar( float, start );
@@ -117,7 +121,11 @@ struct audioparams_t
 	CNetworkArray( Vector, localSound, NUM_AUDIO_LOCAL_SOUNDS )
 	CNetworkVar( int, soundscapeIndex );	// index of the current soundscape from soundscape.txt
 	CNetworkVar( int, localBits );			// if bits 0,1,2,3 are set then position 0,1,2,3 are valid/used
+#if !(defined(HL2_DLL) || defined(HL2_CLIENT_DLL))
 	CNetworkVar( int, entIndex );			// the entity setting the soundscape
+#else
+	CNetworkVar( int, ent );			// the entity setting the soundscape
+#endif // not HL2
 };
 
 

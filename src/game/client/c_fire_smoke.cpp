@@ -82,6 +82,10 @@ void RecvProxy_ScaleTime( const CRecvProxyData *pData, void *pStruct, void *pOut
 //Receive datatable
 IMPLEMENT_CLIENTCLASS_DT( C_FireSmoke, DT_FireSmoke, CFireSmoke )
 	RecvPropFloat( RECVINFO( m_flStartScale )),
+// GNZL: DUMMY
+#ifdef HL2_CLIENT_DLL
+	RecvPropFloat( RECVINFO( m_flOriginalStartScale ))
+#endif // HL2_CLIENT_DLL
 	RecvPropFloat( RECVINFO( m_flScale ), 0, RecvProxy_Scale ),
 	RecvPropFloat( RECVINFO( m_flScaleTime ), 0, RecvProxy_ScaleTime ),
 	RecvPropInt( RECVINFO( m_nFlags ) ),
@@ -268,7 +272,17 @@ void C_FireSmoke::SpawnSmoke( void )
 
 
 IMPLEMENT_CLIENTCLASS_DT( C_EntityFlame, DT_EntityFlame, CEntityFlame )
+// GNZL: DUMMY
+#ifndef HL2_CLIENT_DLL
+	RecvPropFloat(RECVINFO(m_flSize)),
+#endif // HL2_CLIENT_DLL
 	RecvPropEHandle(RECVINFO(m_hEntAttached)),
+#ifndef HL2_CLIENT_DLL
+	RecvPropInt(RECVINFO(m_bUseHitboxes)),
+	RecvPropInt(RECVINFO(m_iNumHitboxFires))
+	RecvPropFloat(RECVINFO(m_flHitboxFireScale)),
+	RecvPropFloat(RECVINFO(m_flLifetime)),
+#endif // HL2_CLIENT_DLL
 END_RECV_TABLE()
 
 //-----------------------------------------------------------------------------
