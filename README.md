@@ -1,16 +1,16 @@
 > [!CAUTION]  
-> ***Does not work yet***, but netprops match.
+> ***Does not work yet***, but the classtables CRCs match. Custom clients can join hl2 vanilla servers.
 
 > [!WARNING]  
 > I tried to mostly ifdef things instead of cutting them straight out, but I do not guarantee a buildable client (especially for other mods)
 
 # HL2 Dedicated Server (not HL2DM/MP, just straight HL2)
 
-An attempt at matching class tables between SDK 2013 code and 20th anniversary HL2
+An attempt making a SDK 2013 based dedicated server compatible with 20th anniversary HL2
 
 ## Credits
 - Valve  
-- akabomb for a custom VSP to help look into the class metadata
+- akabomb for a Rust framework that let me write a custom VSP for getting class metadata out of HL2
 - Myknakryu for the dedicated server build script
 
 ## License
