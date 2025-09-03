@@ -217,7 +217,11 @@ BEGIN_RECV_TABLE_NOBASE( CPlayerLocalData, DT_Local )
 	RecvPropVector( RECVINFO( m_audio.localSound[7] ) ),
 	RecvPropInt( RECVINFO( m_audio.soundscapeIndex ) ),
 	RecvPropInt( RECVINFO( m_audio.localBits ) ),
+#ifndef HL2_CLIENT_DLL
 	RecvPropInt( RECVINFO( m_audio.entIndex ) ),
+#else
+	RecvPropInt( RECVINFO( m_audio.ent ) ),
+#endif
 #ifndef HL2_CLIENT_DLL
 	RecvPropString( RECVINFO( m_szScriptOverlayMaterial ) ),
 #endif

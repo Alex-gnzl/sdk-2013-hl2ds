@@ -56,10 +56,19 @@ public : // IGameResources interface
 	virtual void ClientThink();
 	virtual	void	OnDataChanged(DataUpdateType_t updateType);
 
+#ifdef TF_CLIENT_DLL
 	virtual int		GetUserID( int index );
+#else
+	virtual int		GetUserID( int index ) { return 0; };
+#endif // TF_CLIENT_DLL
 
+#ifdef TF_CLIENT_DLL
 	uint32 GetAccountID( int iIndex );
 	bool IsValid( int iIndex );
+#else
+	uint32 GetAccountID( int iIndex ) { return 0; };
+	bool IsValid( int iIndex ) { return true; };
+#endif // TF_CLIENT_DLL
 
 protected:
 	void	UpdatePlayerName( int slot );

@@ -89,7 +89,11 @@ public:
 
 	void OnStopAllSounds()
 	{
+#ifndef HL2_CLIENT_DLL
 		m_params.entIndex = 0;
+#else
+		m_params.ent = 0;
+#endif // HL2_CLIENT_DLL
 		m_params.soundscapeIndex = -1;
 		m_loopingSounds.Purge();
 		m_randomSounds.Purge();
@@ -390,7 +394,11 @@ void C_SoundscapeSystem::Shutdown()
 	m_loopingSounds.RemoveAll();
 	m_randomSounds.RemoveAll();
 	m_soundscapes.RemoveAll();
+#ifndef HL2_CLIENT_DLL
 	m_params.entIndex = 0;
+#else
+	m_params.ent = 0;
+#endif // HL2_CLIENT_DLL
 	m_params.soundscapeIndex = -1;
 
 	while ( m_SoundscapeScripts.Count() > 0 )
@@ -554,12 +562,20 @@ void C_SoundscapeSystem::Update( float frametime )
 
 void C_SoundscapeSystem::UpdateAudioParams( audioparams_t &audio )
 {
+#ifndef HL2_CLIENT_DLL
 	if ( m_params.soundscapeIndex == audio.soundscapeIndex && m_params.entIndex == audio.entIndex )
+#else
+	if ( m_params.soundscapeIndex == audio.soundscapeIndex && m_params.ent == audio.ent )
+#endif // HL2_CLIENT_DLL
 		return;
 
 	m_params = audio;
 	m_forcedSoundscapeIndex = -1;
+#ifndef HL2_CLIENT_DLL
 	if ( audio.entIndex > 0 && audio.soundscapeIndex >= 0 && audio.soundscapeIndex < m_soundscapes.Count() )
+#else
+	if ( audio.ent > 0 && audio.soundscapeIndex >= 0 && audio.soundscapeIndex < m_soundscapes.Count() )
+#endif // HL2_CLIENT_DLL
 	{
 		DevReportSoundscapeName( audio.soundscapeIndex );
 		StartNewSoundscape( m_soundscapes[audio.soundscapeIndex] );
@@ -567,7 +583,11 @@ void C_SoundscapeSystem::UpdateAudioParams( audioparams_t &audio )
 	else
 	{
 		// bad index (and the soundscape file actually existed...)
+#ifndef HL2_CLIENT_DLL
 		if ( audio.entIndex > 0 &&
+#else
+		if ( audio.ent > 0 &&
+#endif // HL2_CLIENT_DLL
 			 audio.soundscapeIndex != -1 )
 		{
 			DevMsg(1, "Error: Bad soundscape!\n");

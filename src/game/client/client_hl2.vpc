@@ -16,7 +16,7 @@ $Configuration
 	$Compiler
 	{
 		$AdditionalIncludeDirectories	".\hl2;.\hl2\elements;$SRCDIR\game\shared\hl2;$SRCDIR\game\shared\episodic;..\..\public;$BASE"
-		$PreprocessorDefinitions		"$BASE;HL2_CLIENT_DLL;HL2_EPISODIC"
+		$PreprocessorDefinitions		"$BASE;HL2_CLIENT_DLL;HL2_EPISODIC;HL2_LOSTCOAST"
 	}
 }
 
@@ -119,6 +119,11 @@ $Project "Client (HL2)"
 			$File	"episodic\c_weapon_hopwire.cpp"
 			$File	"episodic\c_vehicle_jeep_episodic.cpp"
 			$File	"episodic\c_prop_scalable.cpp"
+			$File	"hl2\hud_radar.cpp"
+			$File	"hl2\hud_radar.h"
+			$File	"$SRCDIR\game\shared\hl2\survival_gamerules.cpp"
+			$File	"episodic\c_npc_puppet.cpp"
+			$File	"hl2\c_weapon_stunstick_player.cpp"
 		}
 	}
 }

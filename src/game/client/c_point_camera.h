@@ -46,12 +46,18 @@ private:
 	float m_Resolution;
 	bool m_bFogEnable;
 	color32 m_FogColor;
+#ifdef HL2_CLIENT_DLL
+	color32 m_FogColor_HDR;
+#endif // HL2_CLIENT_DLL
 	float m_flFogStart;
 	float m_flFogEnd;
 	float m_flFogMaxDensity;
 	bool m_bFogRadial;
 	bool m_bActive;
 	bool m_bUseScreenAspectRatio;
+#ifdef HL2_CLIENT_DLL
+	bool m_bUseHDCamera;
+#endif // HL2_CLIENT_DLL
 
 public:
 	C_PointCamera	*m_pNext;
