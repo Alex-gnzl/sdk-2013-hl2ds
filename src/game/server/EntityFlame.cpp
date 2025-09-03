@@ -37,11 +37,19 @@ END_DATADESC()
 
 
 IMPLEMENT_SERVERCLASS_ST( CEntityFlame, DT_EntityFlame )
+#ifndef HL2_DLL
 	SendPropFloat( SENDINFO( m_flSize ), 0, SPROP_NOSCALE ),
+#else
+	SendPropFloat( SENDINFO( m_flSize ), 16, SPROP_NOSCALE, 0.0f, 65536.0f ),
+#endif // HL2_DLL
 	SendPropEHandle( SENDINFO( m_hEntAttached ) ),
 	SendPropInt( SENDINFO( m_bUseHitboxes ), 1, SPROP_UNSIGNED),
 	SendPropInt( SENDINFO( m_iNumHitboxFires ), 4, SPROP_UNSIGNED),
+#ifndef HL2_DLL
 	SendPropFloat( SENDINFO( m_flHitboxFireScale ), 16),
+#else
+	SendPropFloat( SENDINFO( m_flHitboxFireScale ), 16, 0, 0.0f, 1.0f),
+#endif
 	SendPropFloat( SENDINFO( m_flLifetime ), 0, SPROP_NOSCALE ),
 END_SEND_TABLE()
 
