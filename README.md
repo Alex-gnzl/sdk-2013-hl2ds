@@ -1,5 +1,6 @@
 > [!CAUTION]  
 > ***Does not work yet***, but the classtables CRCs match. Custom clients can join hl2 vanilla servers.
+> Vanilla HL2 clients can't join custom servers because HL2's engine has an older form of the SVC_VoiceInit netmessage, workaround soon.
 
 > [!WARNING]  
 > I tried to mostly ifdef things instead of cutting them straight out, but I do not guarantee a buildable client (especially for other mods)
